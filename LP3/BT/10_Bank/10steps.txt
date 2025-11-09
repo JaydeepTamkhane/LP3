@@ -1,0 +1,155 @@
+Perfect bro 💪 — let’s go full clear, from **zero to running your smart contract** in **Remix IDE** (Ethereum test environment).
+I’ll write this like a small guide — easy to follow, step by step, with examples and exact clicks.
+
+---
+
+## ⚙️ GOAL
+
+You’ll deploy and run this **Bank contract** on Remix (Ethereum test network).
+It will let you **deposit, withdraw, and check balance**.
+
+---
+
+## 🪩 STEP 1 — Open Remix
+
+1. Go to 👉 **[https://remix.ethereum.org/](https://remix.ethereum.org/)**
+2. It will open an IDE in your browser (like VS Code, but for Solidity).
+
+---
+
+## 📁 STEP 2 — Create a new file
+
+1. On the **left sidebar**, click the folder icon 📁 (File Explorer).
+2. Right-click on the `contracts` folder → select **New File**
+3. Name it:
+
+   ```
+   Bank.sol
+   ```
+
+---
+
+## 🧾 STEP 3 — Paste your code
+
+Paste this full contract code 👇
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Bank {
+    mapping(address => uint) private balances;
+
+    // Deposit ETH into the contract
+    function deposit() public payable {
+        balances[msg.sender] += msg.value;
+    }
+
+    // Withdraw ETH from the contract
+    function withdraw(uint amount) public {
+        require(balances[msg.sender] >= amount, "Insufficient balance");
+        balances[msg.sender] -= amount;
+        payable(msg.sender).transfer(amount);
+    }
+
+    // Check balance
+    function getBalance() public view returns (uint) {
+        return balances[msg.sender];
+    }
+}
+```
+
+> 🔥 This version actually accepts real ETH using `msg.value` (not just numbers).
+
+---
+
+## ⚒️ STEP 4 — Compile the contract
+
+1. On the left sidebar, click the **Solidity Compiler** icon (looks like a sheet with 0101 on it).
+2. Make sure:
+
+   * Compiler version is **0.8.x**
+   * The file selected is `Bank.sol`
+3. Click **Compile Bank.sol** ✅
+   (You should see a green checkmark if successful.)
+
+---
+
+## 🚀 STEP 5 — Deploy the contract
+
+1. Click the **Deploy & Run Transactions** icon (the Ethereum diamond 💎).
+
+2. Under “Environment”, choose one:
+
+   * **Remix VM (London)** → easiest for testing
+     (It gives fake ETH automatically.)
+
+3. Keep “Account” as the default one (it will have some ETH already).
+
+4. Click **Deploy**
+   → Contract appears under **Deployed Contracts** below.
+
+---
+
+## 💰 STEP 6 — Deposit ETH
+
+You’ll now send ETH to the contract:
+
+1. Look above the “deposit” button — you’ll see a **Value** box.
+2. Type how much ETH to send:
+
+   * Example: `1`
+3. Change the dropdown beside it from **wei → ether**
+4. Now click the **deposit** button.
+
+✅ That sends 1 ETH to the contract, and stores it under your address.
+
+---
+
+## 💸 STEP 7 — Check balance
+
+1. Click **getBalance**
+   It will show something like `1000000000000000000` (that’s 1 ETH in wei).
+
+---
+
+## 🏧 STEP 8 — Withdraw ETH
+
+1. In the **withdraw** input box, enter the amount to withdraw in wei.
+   Example:
+
+   ```
+   1000000000000000000
+   ```
+
+   (that’s 1 ETH)
+2. Click **withdraw**
+
+✅ ETH will be sent back to your account in Remix VM.
+
+---
+
+## 🧩 STEP 9 — Test again (optional)
+
+* Deposit 0.5 ETH → check balance
+* Withdraw part of it
+* Try over-withdrawing (it should throw “Insufficient balance”).
+
+---
+
+## 🧠 MEMORY TRICK
+
+| Step | Action      | Icon | Example            |
+| ---- | ----------- | ---- | ------------------ |
+| 1    | Open Remix  | 🌐   | remix.ethereum.org |
+| 2    | New file    | 📁   | contracts/Bank.sol |
+| 3    | Paste code  | 🧾   | Solidity code      |
+| 4    | Compile     | 🛠️  | Compile Bank.sol   |
+| 5    | Deploy      | 💎   | Remix VM           |
+| 6    | Deposit     | 💰   | “Value = 1 ether”  |
+| 7    | Get balance | 📊   | `getBalance()`     |
+| 8    | Withdraw    | 🏧   | enter wei value    |
+
+---
+
+Would you like me to explain how to **run the same on a real test network (like Sepolia)** using MetaMask next? That’s the next level after Remix VM.

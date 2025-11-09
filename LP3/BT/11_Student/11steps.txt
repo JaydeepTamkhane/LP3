@@ -1,0 +1,104 @@
+## 🪩 Steps to Run in Remix (same process as Bank)
+
+### 1️⃣ Open Remix
+
+Go to 👉 [https://remix.ethereum.org](https://remix.ethereum.org)
+
+### 2️⃣ Create file
+
+* In the **contracts** folder → right-click → **New File**
+* Name it:
+
+  ```
+  StudentRegistry.sol
+  ```
+
+### 3️⃣ Paste the code
+
+Paste your contract (with the capitalized name).
+
+---
+
+### 4️⃣ Compile
+
+* Click the **Solidity compiler icon** (🛠️).
+* Select version `0.8.0` or higher.
+* Click **Compile StudentRegistry.sol** ✅
+
+---
+
+### 5️⃣ Deploy
+
+* Click the **Deploy & Run Transactions** icon (💎).
+* Environment: **Remix VM (London)**
+* Click **Deploy**
+  → You’ll see your contract under *Deployed Contracts*.
+
+---
+
+### 6️⃣ Test functions
+
+**Add student**
+
+* Expand your deployed contract.
+* Find `addStudent`
+* Enter values:
+
+  ```
+  name: "Jay"
+  age: 21
+  ```
+* Click **transact** ✅
+  → Adds a student to the array.
+
+**Get student**
+
+* In `getStudent`, enter index `0`
+* Click **call**
+* Output:
+  `"Jay", 21`
+
+**Count student**
+
+* Click `countStudent`
+* Output: `1`
+
+---
+
+### 7️⃣ Test fallback/receive
+
+To send Ether to the contract:
+
+1. In Remix “Deployed Contracts” section, scroll to **Low level interactions**
+2. In the **Value** box, type:
+
+   ```
+   1
+   ```
+
+   (change dropdown from wei → ether)
+3. Click **Transact**
+
+You’ll see an event emitted under the Remix console:
+
+```
+ReceivedEther(sender: 0x..., amount: 1000000000000000000)
+```
+
+✅ That confirms your `receive()` or `fallback()` was triggered.
+
+---
+
+### 🧩 Summary
+
+| Function         | What it does                     |
+| ---------------- | -------------------------------- |
+| `addStudent()`   | Adds a student (struct) to array |
+| `getStudent()`   | Fetches student data by index    |
+| `countStudent()` | Shows how many students exist    |
+| `receive()`      | Accepts direct ETH transfer      |
+| `fallback()`     | Handles unexpected calls         |
+
+---
+
+Would you like me to show **how to modify this same contract to actually store how much ETH each student sent** (like a mini wallet per student)? That would make it even more interactive for testing in Remix.
